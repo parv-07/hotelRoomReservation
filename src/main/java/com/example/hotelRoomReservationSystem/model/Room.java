@@ -24,7 +24,7 @@ public class Room {
         this.number = number;
     }
 
-    public static Integer getFloor(int number){
+    public Integer getFloor(){
         return number/10;
 
     }

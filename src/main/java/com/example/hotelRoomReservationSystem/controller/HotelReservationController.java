@@ -19,7 +19,7 @@ public class HotelReservationController {
 
 @GetMapping("/get")
      public String getParv(){
-    return "hellp parv welcome to the spring boot session we will learn system design ";
+    return "hellp parv welcome to the spring boot session we will learn system design and today you will learn ";
 }
 @GetMapping("/getHotel")
     public Map<Integer, List<Room>> getHotels(){
