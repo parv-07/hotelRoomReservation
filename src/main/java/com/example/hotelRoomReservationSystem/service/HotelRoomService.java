@@ -57,15 +57,15 @@ public class HotelRoomService {
             throw new InvalidBookingException("you cannot book more than 5 rooms");
         }
 
-        for (int floor : roomMap.keySet()) {
-            List<Room> available = roomMap.get(floor).stream().filter(r -> !r.isOccupied()).toList();
+//        for (int floor : roomMap.keySet()) {
+//            List<Room> available = roomMap.get(floor).stream().filter(r -> !r.isOccupied()).toList();
+//
+//            if (available.size() >= count) {
+//                List<Room> sameFloorCombination = findMinimalHorizontalTime(available, count);
+//                allCombination.add(sameFloorCombination);
+//            }
 
-            if (available.size() >= count) {
-                List<Room> sameFloorCombination = findMinimalHorizontalTime(available, count);
-                allCombination.add(sameFloorCombination);
-            }
-
-        }
+//        }
         List<Room> availableRooms = getAllRooms().stream().filter(r -> !r.isOccupied()).sorted(Comparator.comparingInt(Room::getFloor).thenComparingInt(Room::getNumber))
                 .collect(Collectors.toUnmodifiableList());
         System.out.println("The available rooms are "+availableRooms);
@@ -85,17 +85,19 @@ public int calculateTravelTime(List<Room> rooms){
         int min = rooms.stream().mapToInt(Room::getFloor).min().orElse(0);
         int verticalTime= (max-min)*2;
         HashMap<Integer,List<Integer>> horizontalmapping = new HashMap<>();
-
+    System.out.println("The vertical timing"+verticalTime);
         for(Room room :rooms){
             horizontalmapping.computeIfAbsent(room.getFloor(), f->new ArrayList<>())
                                   .add(room.getRoomIndexOnFloor());
         }
+    System.out.println("The map is"+horizontalmapping);
         int horizontalTiming=0;
         for(List<Integer> floor: horizontalmapping.values()){
             int maxTime = Collections.max(floor);
             int minTime= Collections.min(floor);
             
-            horizontalTiming = maxTime-minTime;
+            horizontalTiming = horizontalTiming + (maxTime-minTime);
+            System.out.println("The horizontal time" + horizontalTiming);
 
         }
         return verticalTime+horizontalTiming;

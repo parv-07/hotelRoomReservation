@@ -25,7 +25,7 @@ public class Room {
     }
 
     public Integer getFloor(){
-        return number/10;
+        return number/100;
 
     }
     public Integer getRoomIndexOnFloor(){
